@@ -16,7 +16,7 @@ app.on('ready', () => {
         },
     });
 
-    mainWindow.loadFile('./renderer/register.html');
+    mainWindow.loadFile('./renderer/login.html');
 
     mainWindow.webContents.openDevTools();
 
