@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="loginForm">
+        <h1>Login</h1>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <script>
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                const result = await window.authAPI.login(email, password); // Use authAPI
+                if (result.success) {
+                    alert('Login successful!');
+                    localStorage.setItem('jwt', result.token);
+                    const token=localStorage.getItem('jwt');
+                    const user = await window.authAPI.user(token); 
+                    console.log('user',user);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert(result.message);
+                }
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="registerForm">
+        <h1>Create an Account</h1>
+        
+        <!-- Input fields for registration -->
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+        
+        <!-- Submit button -->
+        <button type="submit">Register</button>
+        
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+    
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('registerForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                const result = await window.authAPI.register(email, password); // Use authAPI
+                if (result.success) {
+                    alert('Registration successful! You can now log in.');
+                    window.location.href = 'login.html'; // Redirect to login page
+                } else {
+                    alert(result.message);
+                }
+            });
+        });
+
+
+
+    </script>
+</body>
+</html>
