@@ -1,0 +1,7 @@
+npm init electron-app@latest my-electron-forge-app
+
+npm install --save-dev @electron-forge/cli
+
+npx electron-forge import
+
+how to run: npm start
