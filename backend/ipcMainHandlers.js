@@ -2,6 +2,7 @@
 const { ipcMain } = require('electron');
 const { loginUser, registerUser } = require('./auth');
 const {jwtDecode} = require('jwt-decode');
+const { Notification } = require('electron');
 
 module.exports = () => {
     ipcMain.handle('login', async (event, { email, password }) => {
@@ -36,5 +37,14 @@ module.exports = () => {
             console.log('No JWT found, user is not logged in');
             return null;
         }
+    });
+
+    ipcMain.handle('notify', async (event, { title,body }) => {
+        let notification = new Notification({
+            title: title,
+            body: body,
+          });
+          
+          notification.show();
     });
 };

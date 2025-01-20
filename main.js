@@ -18,7 +18,7 @@ app.on('ready', () => {
 
     mainWindow.loadFile('./renderer/login.html');
 
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     ipcMainHandlers();
 });
