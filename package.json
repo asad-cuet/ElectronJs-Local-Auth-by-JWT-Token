@@ -4,22 +4,27 @@
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "main.js",
-  "win": {
-    "target": "nsis",
-    "icon": "assets/logo.ico",
-    "sign": false
-  },
   "build": {
+    "appId": "com.neuroclock.auth",
+    "productName": "NeuroClock-Auth",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/logo.ico",
+      "sign": false
+    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
+      "artifactName": "NeuroClock-Auth-Setup.exe",
       "shortcutName": "NeuroClock-Auth",
-      "installerIcon": "assets/logo.ico",   
+      "installerIcon": "assets/logo.ico",
       "uninstallerIcon": "assets/logo.ico",
-      "installerHeaderIcon": "assets/logo.ico", 
-      "uninstallDisplayName": "NeuroClock-Auth"
+      "installerHeaderIcon": "assets/logo.ico",
+      "uninstallDisplayName": "NeuroClock-Auth",
+      "perMachine": true,
+      "include": "installer.nsh"
     }
   },
   "scripts": {

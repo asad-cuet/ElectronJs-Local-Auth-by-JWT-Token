@@ -7,19 +7,6 @@ module.exports = {
     icon: "./assets/logo"
   },
   rebuildConfig: {},
-  makers: [
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        name: 'NeuroClock-Auth',
-        authors: 'Asadul Islam',
-        exe: 'NeuroClock-Auth.exe',
-        setupExe: 'NeuroClock-Auth-Setup.exe',
-        noMsi: true,
-        setupIcon: './assets/logo.ico' // Ensure this file exists
-      },
-    }
-  ],
   plugins: [
     {
       name: '@electron-forge/plugin-auto-unpack-natives',
