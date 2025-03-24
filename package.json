@@ -23,7 +23,8 @@
       "uninstallerIcon": "assets/logo.ico",
       "installerHeaderIcon": "assets/logo.ico",
       "uninstallDisplayName": "NeuroClock-Auth",
-      "perMachine": true
+      "perMachine": true,
+      "include": "installer.nsh"
     }
   },
   "scripts": {
