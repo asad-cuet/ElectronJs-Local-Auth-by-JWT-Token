@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
-
+const path = require('path');
 const fs = require('fs');
 const ini = require('ini');
 
-const config = ini.parse(fs.readFileSync('./db_config.ini', 'utf-8'));
+const config = ini.parse(fs.readFileSync(path.join(__dirname, '../db_config.ini'), 'utf-8'));
 
 const mysqlHost = config.Database.host;
 const mysqlUser = config.Database.username;
