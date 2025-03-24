@@ -4,25 +4,21 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: "./assets/logo"
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-    },
-    {
-      name: '@electron-forge/maker-deb',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-rpm',
-      config: {},
-    },
+      config: {
+        name: 'NeuroClock-Auth',
+        authors: 'Asadul Islam',
+        exe: 'NeuroClock-Auth.exe',
+        setupExe: 'NeuroClock-Auth-Setup.exe',
+        noMsi: true,
+        setupIcon: './assets/logo.ico' // Ensure this file exists
+      },
+    }
   ],
   plugins: [
     {

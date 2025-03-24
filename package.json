@@ -1,14 +1,33 @@
 {
-  "name": "my-electron-forge-app",
-  "productName": "my-electron-forge-app",
+  "name": "NeuroClock-Auth",
+  "productName": "NeuroClock-Auth",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "main.js",
+  "win": {
+    "target": "nsis",
+    "icon": "assets/logo.ico",
+    "sign": false
+  },
+  "build": {
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NeuroClock-Auth",
+      "installerIcon": "assets/logo.ico",   
+      "uninstallerIcon": "assets/logo.ico",
+      "installerHeaderIcon": "assets/logo.ico", 
+      "uninstallDisplayName": "NeuroClock-Auth"
+    }
+  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
+    "make": "electron-builder",
+    "publish": "electron-builder --publish=always",
+    "build": "electron-builder --win",
     "lint": "echo \"No linting configured\""
   },
   "devDependencies": {
@@ -20,7 +39,8 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
     "@electron-forge/plugin-fuses": "^7.5.0",
     "@electron/fuses": "^1.8.0",
-    "electron": "32.2.0"
+    "electron": "32.2.0",
+    "electron-builder": "^25.1.8"
   },
   "keywords": [],
   "author": {
