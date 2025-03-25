@@ -1,7 +1,9 @@
 !include nsDialogs.nsh
 
+
 !macro customPageAfterChangeDir
-Page custom customPageCreator nsDialogsPageValidate "MySQL Database Configuration"
+Page custom customPageCreator nsDialogsPageValidate
+
 
 Var Dialog
 Var HostEdit
@@ -13,6 +15,7 @@ Var User
 Var Pass
 Var DBName
 
+
 Function customPageCreator
     nsDialogs::Create 1018
     Pop $Dialog
@@ -20,7 +23,8 @@ Function customPageCreator
     ${If} $Dialog == error
         Abort
     ${EndIf} 
-    
+
+
     ; Host
     ${NSD_CreateLabel} 0 0 100% 12u "MySQL Host:"
     ${NSD_CreateText} 0 15u 100% 12u "localhost"
@@ -65,26 +69,13 @@ Function nsDialogsPageValidate
         MessageBox MB_ICONEXCLAMATION "Please enter database name"
         Abort
     ${EndIf}
+    
+    ; Write directly here
+    WriteIniStr "db_config.ini" "Database" "host" "$Host"
+    WriteIniStr "db_config.ini" "Database" "username" "$User"
+    WriteIniStr "db_config.ini" "Database" "password" "$Pass"
+    WriteIniStr "db_config.ini" "Database" "dbname" "$DBName"
+
 FunctionEnd
-
-Section "Install"
-    CreateDirectory "$INSTDIR"
-    
-    ; Write to INI file using the stored variables
-    WriteIniStr "$INSTDIR\db_config.ini" "Database" "host" "$Host"
-    WriteIniStr "$INSTDIR\db_config.ini" "Database" "username" "$User"
-    WriteIniStr "$INSTDIR\db_config.ini" "Database" "password" "$Pass"
-    WriteIniStr "$INSTDIR\db_config.ini" "Database" "dbname" "$DBName"
-    
-    ; Verify the file was created
-    IfFileExists "$INSTDIR\db_config.ini" +3 0
-    MessageBox MB_ICONEXCLAMATION "Failed to create db_config.ini"
-    Abort
-    
-    ; Add your application files here
-    SetOutPath "$INSTDIR"
-    ; File "your_app_files\*.*"
-SectionEnd
-
 
 !macroend
