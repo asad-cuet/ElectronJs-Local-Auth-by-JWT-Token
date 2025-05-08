@@ -7,6 +7,9 @@ module.exports = {
     icon: "./assets/logo"
   },
   rebuildConfig: {},
+  externals: {
+    'electron-store': 'commonjs electron-store'
+  },
   plugins: [
     {
       name: '@electron-forge/plugin-auto-unpack-natives',

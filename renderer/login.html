@@ -44,10 +44,7 @@
 
             const result = await window.authAPI.login(email, password); // Use authAPI
             if (result.success) {
-                await window.authAPI.notify('Success','Login successful!');
-                localStorage.setItem('jwt', result.token);
-                const token = localStorage.getItem('jwt');
-                const user = await window.authAPI.user(token); 
+                const user = await window.authAPI.user(); 
                 console.log('user', user);
                 window.location.href = 'dashboard.html';
             } else {

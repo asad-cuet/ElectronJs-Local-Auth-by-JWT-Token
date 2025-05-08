@@ -4,15 +4,36 @@ const { loginUser, registerUser } = require('./auth');
 const {jwtDecode} = require('jwt-decode');
 const { Notification } = require('electron');
 
+
+let store;
+
+async function importStore()
+{
+    const StoreModule = await import('electron-store');
+    const Store = StoreModule.default || StoreModule; // handles both ESM and fallback cases
+    store = new Store();
+}
+
+importStore();
+
 module.exports = () => {
     ipcMain.handle('login', async (event, { email, password }) => {
         const result = await loginUser(email, password);
-        if (result) {
-            return { success: true, token: result.token };
+      
+        if (result && result.user) {
+          // Store user data securely
+          store.set('user', {
+            id: result.user.id,
+            name: result.user.name,
+            email: result.user.email,
+            token: result.token || null
+          });
+      
+          return { success: true, user: result.user};
         } else {
-            return { success: false, message: 'Invalid email or password' };
+          return { success: false, message: 'Invalid email or password' };
         }
-    });
+      });
 
     ipcMain.handle('register', async (event, { email, password }) => {
         try {
@@ -23,20 +44,13 @@ module.exports = () => {
         }
     });
 
-    ipcMain.handle('user', async (event, { token }) => {
-        if (token) {
-            // Decode the token to get user info
-            const decoded = jwtDecode(token);
-            const currentTime = Date.now() / 1000; // Current time in seconds
-            if (decoded.exp < currentTime) {
-                return null;
-            } else {
-                return decoded;
-            }
-        } else {
-            console.log('No JWT found, user is not logged in');
-            return null;
-        }
+    ipcMain.handle('logout', () => {
+        store.delete('user');
+        return { success: true };
+    });
+
+    ipcMain.handle('user', async (event) => {
+        return store.get('user');
     });
 
     ipcMain.handle('notify', async (event, { title,body }) => {
