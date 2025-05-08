@@ -45,6 +45,10 @@
             const result = await window.authAPI.login(email, password); // Use authAPI
             if (result.success) {
                 const user = await window.authAPI.user(); 
+                if(user)
+                {
+                    await window.authAPI.notify('Login successful','You are logged in');
+                }
                 console.log('user', user);
                 window.location.href = 'dashboard.html';
             } else {
